@@ -1,0 +1,2 @@
+{"type": "user", "uuid": "u1", "sessionId": "cc-sess-1", "timestamp": "2026-10-05T18:10:00Z", "message": {"role": "user", "content": "my github token is ghp_abcDEF1234567890xyz and email bob@example.org"}}
+{"type": "assistant", "uuid": "a1", "sessionId": "cc-sess-1", "timestamp": "2026-10-05T18:10:05Z", "message": {"role": "assistant", "model": "claude-x", "content": [{"type": "thinking", "thinking": "PRIVATE REASONING"}, {"type": "text", "text": "Noted."}, {"type": "tool_use", "name": "bash", "input": {"cmd": "echo hi"}}]}}
