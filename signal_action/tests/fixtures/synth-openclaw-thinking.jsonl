@@ -1,0 +1,7 @@
+{"type": "session", "sessionId": "sess-think-001", "timestamp": "2026-10-05T19:00:00Z", "cwd": "/tmp"}
+{"type": "message", "id": "t1", "timestamp": "2026-10-05T19:00:01Z", "message": {"role": "user", "content": "help me draft the report"}}
+{"type": "message", "id": "t2", "timestamp": "2026-10-05T19:00:05Z", "message": {"role": "assistant", "content": [{"type": "thinking", "thinking": "The user at jane.doe@example.com asked for a report draft. Their phone is +1-555-014-8890 in case I need to follow up. The db password is hunter2x9Q if I need data access. I must not repeat any of this back."}, {"type": "text", "text": "Sure, drafting now."}]}}
+{"type": "message", "id": "t3", "timestamp": "2026-10-05T19:00:09Z", "message": {"role": "assistant", "content": [{"type": "thinking", "thinking": "Silent deliberation only: checking whether the login me:sup3rsecret@example.com is still valid before proceeding."}]}}
+{"type": "thinking", "id": "t4", "timestamp": "2026-10-05T19:00:12Z", "thinking": "Top-level thinking row: user lives at 742 Evergreen Terrace, considering route options."}
+{"type": "message", "id": "t5", "timestamp": "2026-10-05T19:00:15Z", "message": {"role": "user", "content": "thanks"}}
+{"type": "compaction", "id": "c9", "timestamp": "2026-10-05T19:01:00Z", "summary": "compacted"}
