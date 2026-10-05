@@ -1,0 +1,404 @@
+{
+ "date": "2026-10-05",
+ "seed": 20261005,
+ "judge_model": "clef-flash",
+ "calls_total": 3200,
+ "calls_attempted_incl_retries": 3200,
+ "utilities": {
+  "481eb0a5-96ad-4f24-b858-32dd76c4bee7": {
+   "utility_pp": 4.167,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "17f25a64-82e4-4114-8819-f0d5f820e33a": {
+   "utility_pp": 4.167,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "316fa681-a038-4fe3-a195-7e3d0ae71236": {
+   "utility_pp": 2.5,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "5982acb5-8bfe-4aaa-b05c-913959bccadc": {
+   "utility_pp": 3.333,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "8a1bef3a-c1a1-49b4-ac26-00cc74560404": {
+   "utility_pp": 3.333,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "a4235ce0-662a-453c-9b6d-ff4f7a18bcc8": {
+   "utility_pp": 2.5,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "8dc3a361-e976-459e-b259-90cd58995897": {
+   "utility_pp": 1.667,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "6c2fd86b-1a60-4c0c-a608-80df172a3f4f": {
+   "utility_pp": 1.667,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "c97a8fab-e638-4156-ad4c-95e7f66b4857": {
+   "utility_pp": 2.5,
+   "kind": "rule",
+   "n_pairs": 120
+  },
+  "ffdae534-861e-412b-9e2e-03f0a299a356": {
+   "utility_pp": 6.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "a8bd2d78-1341-49d7-9185-602ceb0e5cb4": {
+   "utility_pp": 2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "0773f246-d80b-48a1-9b20-0b32e930d7c5": {
+   "utility_pp": 2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "bf6739f8-84c7-4993-bf84-896737f91f71": {
+   "utility_pp": 0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "1a65a353-b771-4874-b3eb-d73aed9d23c8": {
+   "utility_pp": 5.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "288ea788-2caa-4ef4-ab38-9318c03d8d11": {
+   "utility_pp": 3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "945e51e7-a2ca-48cb-a0a5-11e3e5606227": {
+   "utility_pp": 3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "6564fe19-5384-4eec-89b9-02f2c94b0403": {
+   "utility_pp": 1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "174167c4-79cb-4a8c-9cc9-281872e5d3da": {
+   "utility_pp": 2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "3a1c8b09-03de-49cd-8a67-d20bc2838d37": {
+   "utility_pp": 0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "bdf2793c-e467-4214-ac19-855188c4acfb": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "db4aa968-c776-44e5-b986-821ea0120ec3": {
+   "utility_pp": 2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "592e4fdd-a3f5-4277-b0d3-780cfe3405a2": {
+   "utility_pp": 1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "6917e9a7-369e-43cf-ace0-6dd7f1e221e1": {
+   "utility_pp": -2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "9d2c930a-3ee5-4680-a0b4-808b34e2f917": {
+   "utility_pp": 4.167,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "d1db4022-001f-4bf8-8475-0edfb8ada966": {
+   "utility_pp": 0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "edcad982-d6bc-4a68-b303-c3f006ce01d2": {
+   "utility_pp": 1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "8b212447-8b6f-4423-94d6-fcd8248a74d5": {
+   "utility_pp": 0.0,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "1a286e4a-3dbb-46c6-8568-918bbffe9d07": {
+   "utility_pp": 1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "09142a6c-9b68-4a7f-a9e2-fd2c093b6f2f": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "df44fd4c-6974-492d-9edc-35c53ce3146f": {
+   "utility_pp": 1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "6c21872f-1202-474b-a725-8b7609765f23": {
+   "utility_pp": -1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "1c6526fc-1a93-4522-9254-b1da07ac2595": {
+   "utility_pp": 0.0,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "85a4fe34-0db1-43a8-b7b8-25b1377a912d": {
+   "utility_pp": 0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "ac76b3dd-20db-4aa4-830e-c3a00735bad1": {
+   "utility_pp": -0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "cf4ff7c6-194c-4dfb-a503-55d352d95e8d": {
+   "utility_pp": 0.0,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "eb4b29f2-f729-4585-b195-76e4995bbf2c": {
+   "utility_pp": 3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "53d81e52-5321-4bcd-822f-7842f73063a9": {
+   "utility_pp": -0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "841d6c41-a0fb-4882-b9c2-4f2f57d885af": {
+   "utility_pp": 2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "a51895fb-d22b-43ed-8090-c18d36d66fff": {
+   "utility_pp": 0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "7c6411d2-0b6a-4b65-be97-2d9e5c17ef4e": {
+   "utility_pp": 3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "a2f18978-5fbd-4e66-bb08-4c4c8c129217": {
+   "utility_pp": 1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "9db9fcc0-3865-4340-8b75-0907ed14ef3c": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "6ceb2158-e293-4682-9844-665a9ca36df2": {
+   "utility_pp": 2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "9f27580f-7583-4810-9146-ca3b61cb5d0a": {
+   "utility_pp": 2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "f60b0aef-d90e-448d-b9dc-f3289d67ea89": {
+   "utility_pp": -1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "ec3fb1e5-b3e8-4c40-bf11-5e57e6033f4a": {
+   "utility_pp": -2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "3943fffc-d4ae-4287-9a8b-2348c6c9e7f6": {
+   "utility_pp": -1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "24938114-f3de-41ae-8c83-91b2ca00931f": {
+   "utility_pp": -2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "bf003eb8-4056-4043-a123-f4104ca44f9c": {
+   "utility_pp": 4.167,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "7c3eb170-d6e3-482b-93dd-8976bc331e79": {
+   "utility_pp": 0.0,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "c9cac521-6b76-4467-b524-e0a8bd5bc531": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "94cf9f83-f715-4049-8ede-8609790bf5cc": {
+   "utility_pp": 4.167,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "ca029934-586c-435a-9655-c45bfc2b4e41": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "81875e61-e482-4d9c-bc47-4f4314f335ae": {
+   "utility_pp": -0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "4d4d7854-8624-4fa1-9ab2-f877486ad5f0": {
+   "utility_pp": -1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "60ed7e64-7101-43ae-b2ba-e49bae02125f": {
+   "utility_pp": -0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "25be5d3b-b9bd-450b-9e12-82f9e7e7dc90": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "60a0e98b-8f6c-4ed5-a59a-f294afbb6475": {
+   "utility_pp": 0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "fba5a0ab-8302-4f5b-8cdb-380bace71502": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "ab2be7a7-b35b-4b22-ac0d-4294852887a9": {
+   "utility_pp": -0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "f375b397-7b49-44a9-b8cf-b08fcd47a29b": {
+   "utility_pp": -1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "f9f76739-56a4-4028-919e-ed78a3d227b1": {
+   "utility_pp": -0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "0218f1b8-0ebb-4f50-a2b3-edaed107fac9": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "03b628a9-55bb-4f88-a63b-f5cfee53cac0": {
+   "utility_pp": -1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "608118fa-a67b-48c5-9d7c-1f320b06235e": {
+   "utility_pp": -5.0,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "972acf1b-feed-498f-afa8-372667e39168": {
+   "utility_pp": -2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "ae3282f7-70e1-46fb-b39c-6c5dc4d052d8": {
+   "utility_pp": -0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "14423787-314e-46b1-9974-d94a7d462159": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "63a0b2c3-d955-47a8-9ea4-8ffbbbe3952d": {
+   "utility_pp": 0.0,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "82751abf-af4e-4866-8d06-b638524f52fc": {
+   "utility_pp": 1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "bb6ac589-af3c-41fc-9466-ba85c3384c8f": {
+   "utility_pp": -1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "459c08bc-173b-4748-9066-cd8d8d8c7590": {
+   "utility_pp": -3.333,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "b7f60fae-f7de-4387-948a-e11c5d931a26": {
+   "utility_pp": 1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "206e280c-6d0b-4600-adb3-bde8a202cc58": {
+   "utility_pp": -2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "f90f9882-126a-47da-8e42-50c15f8fbf8f": {
+   "utility_pp": -4.167,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "f5cddf05-8add-4dd1-9834-44f96769509b": {
+   "utility_pp": -2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "1fcceca2-22c6-40df-8de1-447bcd518dfa": {
+   "utility_pp": -0.833,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "d16d5034-3c01-41de-a4f5-46648b2940e7": {
+   "utility_pp": -2.5,
+   "kind": "exemplar",
+   "n_pairs": 120
+  },
+  "475ef0be-caa9-474c-a64f-bce57e72925e": {
+   "utility_pp": -1.667,
+   "kind": "exemplar",
+   "n_pairs": 120
+  }
+ }
+}
