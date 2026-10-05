@@ -1,0 +1,9 @@
+{"type": "session", "sessionId": "sess-synth-001", "timestamp": "2026-10-05T18:00:00Z", "cwd": "/tmp"}
+{"type": "message", "id": "m1", "timestamp": "2026-10-05T18:00:01Z", "message": {"role": "user", "content": "hi, my email is jane.doe@example.com and my phone is +1-555-014-8890"}}
+{"type": "message", "id": "m2", "timestamp": "2026-10-05T18:00:05Z", "message": {"role": "assistant", "content": [{"type": "text", "text": "Got it. What's the task?"}, {"type": "thinking", "text": "PRIVATE REASONING MUST NOT BE CAPTURED"}]}}
+{"type": "message", "id": "m3", "timestamp": "2026-10-05T18:00:09Z", "message": {"role": "user", "content": "deploy with this key: sk-TESTKEYabc123DEF456ghi789jkl012mno345pq and the db password is hunter2x9Q!"}}
+{"type": "message", "id": "m4", "timestamp": "2026-10-05T18:00:12Z", "message": {"role": "assistant", "content": [{"type": "tool_use", "name": "deploy", "input": {"key": "sk-TESTKEYabc123DEF456ghi789jkl012mno345pq"}}, {"type": "text", "text": "Deploying now."}]}}
+{"type": "message", "id": "m5", "timestamp": "2026-10-05T18:00:15Z", "message": {"role": "toolResult", "content": "ok"}}
+{"type": "message", "id": "m6", "timestamp": "2026-10-05T18:00:20Z", "message": {"role": "user", "content": "my ssn is 123-45-6789, card 4111 1111 1111 1111, login me:sup3rsecret@example.com, address 742 Evergreen Terrace"}}
+{"type": "compaction", "id": "c1", "timestamp": "2026-10-05T18:01:00Z", "summary": "compacted"}
+{"type": "message", "id": "m7", "timestamp": "2026-10-05T18:01:05Z", "message": {"role": "assistant", "content": "Done. Bearer abcdefghijklmnop1234567890 used."}}
