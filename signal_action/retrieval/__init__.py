@@ -28,6 +28,11 @@ Public surface:
   BM25_K1, BM25_B, RRF_K, UTILITY_LAMBDA   (module-level tunables)
   BM25                                      (pure-python BM25 scorer)
   HybridBank                                (load_utility, retrieve)
+  vector_store                              (VectorStore, PgVectorStore,
+                                             pgvector_migration_sql)
+  cache                                     (EmbeddingCache)
+  slo                                       (LatencyTracker, DEFAULT_BUDGETS,
+                                             percentile)
 """
 
 import json
