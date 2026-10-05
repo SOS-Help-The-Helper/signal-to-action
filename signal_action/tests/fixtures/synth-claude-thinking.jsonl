@@ -1,0 +1,2 @@
+{"type": "user", "uuid": "u1", "sessionId": "cc-think-1", "timestamp": "2026-10-05T19:10:00Z", "message": {"role": "user", "content": "review this plan"}}
+{"type": "assistant", "uuid": "a1", "sessionId": "cc-think-1", "timestamp": "2026-10-05T19:10:05Z", "message": {"role": "assistant", "model": "claude-x", "content": [{"type": "thinking", "thinking": "Reviewing the plan. Contact is bob@example.org, ssn 123-45-6789 on file. Card 4111 1111 1111 1111 for billing. Keep these out of the reply."}, {"type": "text", "text": "Plan looks good."}]}}
