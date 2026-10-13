@@ -34,6 +34,7 @@ Every claim about a decision carries its date. Uncertain items are labeled as su
 20. SOS, Impacted, Wingman, and Jerry are implementations/tenants of STA — each at a different stage of conformance (see §13). SOS production today runs bespoke STA-like code; the canonical `signal_action` package exists with tests but is not yet imported into SOS production (verified 2026-10-07).
 21. Language is settled and non-negotiable: what people have are **requests**, what helpers provide are **resources**, people who help are **helpers**. Never "needs"/"offers" as domain nouns, never "volunteers," never the forbidden label for people getting help (see §2).
 22. If you remember nothing else: **sort cheap, draft expensive, gate irreversible decisions with a human, record everything in the ledger, and turn every outcome into a checkable rule.**
+23. **The system runs on Memory, Trust, and Coordination (§18).** Memory is typed traces plus verbatim evidence; a memory is believable only if it carries provenance, typed evidence, confidence as data, a verification state that flips when evidence lands, scope, and freshness. Coordination is one canonical store per memory kind, one write contract per store, promotion (proposed → reviewed → applied) with an owner and a clock, and a read-path registry — nothing steers before it is promoted, and stale memory labels itself stale.
 
 ---
 
@@ -552,6 +553,85 @@ Where STA actually lives, as of 2026-10-08. Local paths are on this machine; Git
 | `~/workspace/your_files/signal-to-action-brief-for-fresh-agent.md` | The prior compaction-survival brief (135 lines). **Superseded by this guide**; kept for provenance. |
 | `~/workspace/sta-audit/COVERAGE-REPORT.md` | The Phase 1 audit this guide was synthesized from. Approved by Jonathan 2026-10-08. |
 | `~/workspace/your_files/signal-to-action-whitepaper-v2-draft.md` | The ONE PAPER draft: "Signal-to-Action: The Framework" — framework + Relay + loops + testing, SOS as case study. Every test stage updates its honest-results chapter. |
+
+## 18. Memory, Trust, Coordination — the operating substrate
+
+The seven stages (§4) describe what the system does. This section describes what the system *runs on* while it does it. Ratified 2026-10-13:
+
+> **Inside STA, the system runs on Memory, Trust, and Coordination.** Memory is what the system retains. Trust is what retained material must carry before it may steer anything. Coordination is the discipline that decides who writes memory, who promotes it, and who reads it.
+
+The triad is not a fourth set of loops. It is the substrate the loops already assume: the Memory Loop (§6.2) assumes memory worth compounding; the Trust Loop (§6.3) assumes evidence that can bear weight; the Coordination Loop (§6.1) assumes a record everyone reads the same way. Isaias (October 2026, the largest live event the system has run) is the incident that measured what happens when the substrate is assumed instead of enforced: the loops were present, the substrate was not, and the learning that should have compounded mostly did not.
+
+### 18.1 The pipeline
+
+Every memory in the system — a trace, a learning, a person fact — travels the same six-step pipeline. A memory that has not completed a step does not get the rights of that step.
+
+**CAPTURE → TYPE → VERIFY → PROMOTE → APPLY → AUDIT**
+
+| Step | What happens | Guide machinery it binds to |
+|---|---|---|
+| **Capture** | Raw material lands verbatim, with provenance, before anyone interprets it. | Stage 1 (Signal); HAR-45 capture adapter; §8 ledger discipline |
+| **Type** | The memory is written into typed fields: evidence and interpretation in separate fields, by separate writers. Prose is not a field. | §7 rule 2; Stage 2 typed handoff |
+| **Verify** | The memory carries a verification state, and the state **flips** when confirming or contradicting evidence lands. A state that cannot change is a label, not a verification. | Stage 7 learning types; §6.2 gating |
+| **Promote** | A named owner moves the memory proposed → reviewed → applied, on a clock. Nothing sits at "proposed" silently. | HAR-50 learning/policy-update seam |
+| **Apply** | Only promoted memory steers: judgment exemplars, routing weights, thresholds, agent context. | Memory Loop (§6.2); Trust Loop (§6.3) |
+| **Audit** | The stores themselves are measured on a schedule: freshness, dedupe, linkage, promotion latency, field completeness. Cross-system comparisons (different memory systems over identical input) run as audits, not accidents. | Evaluation Loop (§6.4); §6 falsifiable bar |
+
+### 18.2 Memory — typed traces plus verbatim evidence
+
+**A memory is a typed record that can rehydrate its verbatim source.** If the verbatim source cannot be produced, the memory is a claim, not a record, and is treated as one downstream.
+
+- **Verbatim is the floor.** Henry Brain's trace store shows the achievable standard: verbatim excerpts populated on 6,078 of 6,293 traces (96.6%), measured 2026-10-13 (Pass B, Part I §5). The same store shows the failure mode in miniature: `parent_trace_ids` populated on 16 of 6,293 (0.25%) — the provenance chain the design promises is effectively absent even where the verbatim text survives.
+- **Typed or it didn't happen.** The incident's fuller trace extract (627 traces drawn from THE SOS) populated its `learning` field on **0 of 627** rows (Pass B, Part I §1). The Learning stage ran; it wrote nothing back onto the record it learned from. A stage whose outputs live somewhere else — a chat, a summary, a person's head — has not produced memory.
+- **Linkage is part of the record.** In helpthehelper, 69 traces carry the incident's `disaster_id`; 194 mention it in text; the 117 report-created traces carry the report text verbatim and no incident key (Pass B, Part I §1). Linkage and text disagree by a factor of ~2.8. A memory that cannot be joined to what it is about will be undercounted by every later reader — including the system's own audits.
+
+### 18.3 Trust — what a memory must carry before it may steer
+
+**Trust is a property a memory carries with it, not a reputation the store has.** A learning without provenance, typed evidence, and a confidence basis is a rumor with a timestamp. Six carried properties, each with the Isaias measurement that taught it:
+
+1. **Provenance.** Who wrote it, when, from which source traces. (See 18.2: the chain field exists and is 0.25% populated.)
+2. **Typed evidence — source IDs, not bare counts.** 37 of 314 Isaias reports carry corroboration; the run's maximum aggregation survives only as `corroboration_count = 3` with empty metadata — the four source posts are unrecoverable (Pass A, L8). A count without its sources cannot be audited, weighted, or trusted at review time.
+3. **Confidence as data, with a basis.** Decision traces populated `confidence_score` on 9 of 627 incident rows (1.4%), while a verbatim identity-decision row asserts "(conf 1.00)" inside its prose reasoning with `confidence_score: null` on the same row (Pass B, L9). A confidence that lives in a sentence cannot gate a cascade (§9), calibrate a threshold (§6.4), or be checked. Confidence is a number in a field, with its drivers recorded, or it does not exist for the system.
+4. **A verification state that flips.** Advisory 14 was held unverified at 02:12Z; NHC posted at 02:46Z; a confirmation record cross-referencing the held record by ID was filed at 02:48:44Z — and the held record is still unverified (Pass A, L7). The mirror failure: across every store searched, outcomes containing "held" or "awaiting" number **0** (Pass B, R1) — the one moment of designed caution the run is proudest of is a state STA memory cannot represent, prove, or replay. A verification state that never flips, in either direction, corrupts every later read of the record.
+5. **Scope.** Every memory is scoped — tenant, domain, incident — and scope is enforced at write and read time, not by convention. Cross-tenant contribution remains consent-gated by `share_learning` (§10). Unscoped memory bleeds: the incident's reports (314) live outside the tenant store that was supposed to hold them (Pass B, Part I §4), and its traces live in two stores that stopped agreeing (see 18.5).
+6. **Freshness.** A store's newest write is a health fact, displayed, not discovered. helpthehelper `signal_traces` wrote 50,825 rows on Oct 9, 920 on Oct 10, 151 on Oct 11, then **0 and 0** — frozen at 2026-10-11 02:23:42Z, mid-incident, while incident reports kept arriving until Oct 12 18:20Z (Pass B, Parts I–II; freeze timestamp re-verified by read-only query 2026-10-13). Henry Brain's briefing layer has been stale since 2026-06-23 and its judgment-analysis layer since 2026-09-25 (Pass B, Part I §5). Stale memory must label itself stale at read time; silent staleness is how a system comes to believe a frozen world.
+
+### 18.4 Coordination — who writes, who promotes, who reads
+
+Coordination is not more sync jobs. It is four agreements, kept:
+
+1. **One canonical store per memory kind; replicas are labeled and read-only.** Canonical learnings live in Henry Brain `system_learnings`. helpthehelper `system_learnings` is a downstream sync replica — its 65 rows carry `status = 'synced'` and brain provenance in metadata (`source: "henry_brain"`, `source_agent: "sos-synthesis"`), and direct inserts there sit outside the sync contract (Pass A, §1). **Do not direct-insert into a replica.**
+2. **One write contract per store.** A store with two writer dialects has no contract. `s2a_learnings` has two in the wild: the henry-ops dialect (`learning_id`, `mechanism`, `summary`) and `pollers/common.py` `log_learning()` (six columns, exact-summary dedupe inside 24h) (Pass A, §1). The contract is load-bearing in a mechanically confirmed way: the found rollup (`impacted/supply/rollup_learnings.py`) copies `summary` **verbatim** into the canonical store's `pattern` — and all 56 legacy `s2a_learnings` rows have `summary = NULL`. Rolling that backlog up as-is would write NULL patterns into the canonical store. Mandatory summary, semantic (not exact-string) dedupe, and typed evidence are contract terms, not style.
+3. **Promotion has an owner and a clock.** Henry Brain holds 589 learnings; at audit on 2026-10-13, **407 sit at status `proposed`** (69%), against 36 active, 35 validated, 28 approved, 2 implemented — statuses counted by read-only query. The incident's one well-formed learning (sensing layer fires, acting layer stays dark — written mid-event, 2026-10-10 07:16:55Z) sat at `proposed`, unreviewed and unapplied, for 3+ days (Pass B, Part I §5). helpthehelper `s2a_learnings`: `rolled_up_at` set on **0 of 56** (re-verified by query 2026-10-13). A proposal older than the clock (default 48h) escalates to its owner; an ownerless store is a defect, per the §6 falsifiable bar applied to the pipeline itself.
+4. **A read-path registry, and scheduled cross-system audits.** Every consumer of every store is enumerated in a registry (companion artifact, `read-path-registry.md` in the framework setup): who reads, through which surface, verified how. The registry is both the trust tool and the privacy tool — you cannot trust what you cannot trace, and you cannot wipe what you cannot enumerate (the 2026-10-12 wipe lesson: a full wipe failed twice until the read paths behind `GET /v1/persons/context` were enumerated and the wipe was verified *through* the read path, not the tables). Audits compare memory systems over identical input on a schedule — the 2026-10-13 comparison (Muse memory vs STA memory over the same Isaias corpus) is the first instance, not a one-off: the two systems converged on the same core findings independently, and each retained things the other lost (narrative and decisions on one side; typed, queryable, in-the-moment capture on the other). Neither is sufficient alone; the audit is how the system knows.
+
+### 18.5 The Isaias evidence, in one table
+
+| Framework rule | What Isaias measured | Source |
+|---|---|---|
+| Windows and geography are memory decisions too | The incident's largest community post (44,078 impressions) landed 2026-10-12 10:34:08Z — 10h34m after the search window closed; inland places (Milton, Pace, Santa Rosa) named in no query | Pass A L1–L2; Pass B L1–L2 |
+| Verification must gate, and states must flip | 115/115 unverified reports map-visible; 84/84 verified official reports map-hidden; held record never flipped after confirmation | Pass A L6–L7; Pass B L6 |
+| Confidence as data | `confidence_score` on 9/627 traces (1.4%); "(conf 1.00)" asserted in prose on a row whose field is null | Pass B L9 |
+| Typed evidence, not counts | Run-maximum corroboration stored as a bare count of 3, sources unrecoverable | Pass A L8 |
+| Freshness is displayed health | Trace writes froze 2026-10-11 02:23:42Z mid-incident; per-day 50,825 → 920 → 151 → 0 → 0 | Pass B Parts I–II; re-verified 2026-10-13 |
+| One write contract | Two `s2a_learnings` dialects; 56/56 legacy summaries NULL under a verbatim-copy rollup | Pass A §1 |
+| Dedupe is a gate, not a hope | Replica's 65 rows contain 8 verbatim duplicate pattern pairs (57 distinct) | Pass A §2; Pass B Part I §2 |
+| Promotion has a clock | 407 of 589 canonical learnings at `proposed`; the incident's one learning unreviewed 3+ days; rollup 0/56 | Query 2026-10-13; Pass B L10 |
+| Sensor death is loud | X sweeps died on depleted credits (HTTP 402) across ~14 runs; every error file 0 bytes; no escalation recorded | Pass A L11; Pass B L5 |
+| Cost is memory too | No per-run cost attribution exists; the window's largest org-wide day (~$27,034) is ~97% another project | Pass A L14; Pass B L12 |
+
+### 18.6 Standing rules (checkable)
+
+1. No memory steers (APPLY) before it has been typed, verified, and promoted. Unpromoted memory may be *read* for audit; it may not steer judgment, routing, or agent context.
+2. Every store has a heartbeat: newest-write timestamp checked on a schedule; breach during an active incident is a loud failure, not a log line.
+3. Every store has exactly one write contract, named in the registry, including mandatory summary, provenance fields, typed evidence with source IDs, numeric confidence with drivers, and semantic dedupe at write time.
+4. Verification states flip on evidence, in both directions, and the flip is itself a trace.
+5. Promotion latency is measured per store; anything past the clock escalates to a named owner.
+6. Replicas are labeled, read-only to writers, and never the target of a direct insert.
+7. The read-path registry is updated in the same motion as any new store, writer, or consumer — the same-motion rule that governs Linear/GitHub/Vercel applies to memory surfaces.
+8. Cross-system memory audits run on a schedule and after every major live event; findings enter the pipeline at CAPTURE like any other signal.
+
+**Honest status (2026-10-13):** the framework is ratified; the mechanisms are at different stages. The write path (capture into `s2a_learnings`, rollup to canonical) is established for the jobs tenant and specced for `sos-bridge`; the heartbeat, the `sos-bridge` rollup job, and the promotion clock are setup work, not running systems. Nothing in this section should be cited as proof they are live until the registry's verification column says so, with a date.
 
 ---
 
