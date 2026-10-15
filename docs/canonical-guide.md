@@ -35,6 +35,7 @@ Every claim about a decision carries its date. Uncertain items are labeled as su
 21. Language is settled and non-negotiable: what people have are **requests**, what helpers provide are **resources**, people who help are **helpers**. Never "needs"/"offers" as domain nouns, never "volunteers," never the forbidden label for people getting help (see §2).
 22. If you remember nothing else: **sort cheap, draft expensive, gate irreversible decisions with a human, record everything in the ledger, and turn every outcome into a checkable rule.**
 23. **The system runs on Memory, Trust, and Coordination (§18).** Memory is typed traces plus verbatim evidence; a memory is believable only if it carries provenance, typed evidence, confidence as data, a verification state that flips when evidence lands, scope, and freshness. Coordination is one canonical store per memory kind, one write contract per store, promotion (proposed → reviewed → applied) with an owner and a clock, and a read-path registry — nothing steers before it is promoted, and stale memory labels itself stale.
+24. **Every request, resource, report, and job carries the category taxonomy (§19).** Records store one coordination `taxonomy_code`; the AIRS/OCHA pair is derived from it, never entered. Unknown classifications are NULL plus a logged gap, never a guess, and coverage is always reported as two numbers (any-code and per-item).
 
 ---
 
@@ -632,6 +633,74 @@ Coordination is not more sync jobs. It is four agreements, kept:
 8. Cross-system memory audits run on a schedule and after every major live event; findings enter the pipeline at CAPTURE like any other signal.
 
 **Honest status (2026-10-13):** the framework is ratified; the mechanisms are at different stages. The write path (capture into `s2a_learnings`, rollup to canonical) is established for the jobs tenant and specced for `sos-bridge`; the heartbeat, the `sos-bridge` rollup job, and the promotion clock are setup work, not running systems. Nothing in this section should be cited as proof they are live until the registry's verification column says so, with a date.
+
+---
+
+## 19. Category Taxonomy (AIRS / OCHA)
+
+_Added 2026-10-15, with the taxonomy implementation across helpthehelper, THE SOS, and the Impacted tenant. Design of record: `TAXONOMY-DESIGN-2026-10-15.md`; every change to the vocabulary or the crosswalk is logged in `taxonomy_change_log` in the project where it lands._
+
+### The three layers
+
+| Layer | What it is | Where it lives | Who reads it |
+|---|---|---|---|
+| **Coordination taxonomy** | SOS's own hierarchical codes (193 codes). The one vocabulary that classifies requests, resources, reports, matches, cases, capability sets, and jobs. Every code carries its standards pair on the same row: an AIRS code and an OCHA cluster. | `taxonomy` table (`taxonomy_usage = 'coordination'`) in helpthehelper — the canonical copy. THE SOS holds an identical table; the Impacted tenant holds a copy of the coordination rows. | Everything downstream: matching, routing, reports, dashboards, crosswalks to funders and coordinators. |
+| **Classification frameworks** | The imported AIRS 2-1-1 LA County taxonomy (~1,000 codes, `AIRS:`-prefixed) and the legacy Relay domain vocabulary (~13,600 labels). Reference data. | Same `taxonomy` table, `taxonomy_usage = 'classification'`. | Display strings only. **Never written onto a record.** A record's classification is always its coordination code; the AIRS/OCHA pair is read off that code's row. |
+| **Corpus fine grain** (Impacted) | The fields the job corpus already carries: `function_lane`, role family, seniority bands, skill lists. Finer than any coordination code. | The Impacted tenant's own tables. | Matching. The fine grain drives matching; the taxonomy code is the coarse standard layer derived from it, never a replacement for it (see the layering contract below). |
+
+### The coordination roots
+
+The pair shown is the root row's; every code carries its own pair on its own row.
+
+| Root | Means | AIRS | OCHA |
+|---|---|---|---|
+| `ANIMAL` | Animal rescue, shelter, foster, transport (top groupings are two-segment, e.g. `ANIMAL.SHELTER`) | per code | per code |
+| `CIVIC` | Civic infrastructure: roads, drainage, lighting, sanitation, parks, plus provenance classes `CIVIC.SITUATION_UPDATE` and `CIVIC.COMMUNICATIONS` | — (see the NULL rule) | ERL |
+| `COMMUNITY` | Community Services | PH | PRO |
+| `DONATION` | Donations (cash, in-kind, assets, services) | sos:DONATION (local) | MUL (local — see decisions) |
+| `EDUCATION` | Education & Childcare | HH | EDU |
+| `EMPLOYMENT` | Employment & Income — `EMPLOYMENT.SEARCH` is the job-posting code in every project | ND | ERL |
+| `FINANCIAL` | Financial & Legal | NS | ERL |
+| `FOOD` | Food & Water | BD | FSC |
+| `GOODS` | Personal Goods & Supplies | BM | SHL |
+| `HEALTH` | Health & Medical | LF | HEA |
+| `HOUSING` | Housing & Shelter | BH | SHL |
+| `INFRASTRUCTURE` | Power, road, and utility-outage status reports (top groupings are two-segment) | per code | per code |
+| `MENTAL_HEALTH` | Mental Health & Wellness | RF | HEA |
+| `SAFETY` | Safety & Protection (rescue, fire, flooding, hazards) | TH | CCCM |
+| `SUPPLIES` | Supplies & Equipment | BM | SHL |
+| `SVC` | Services (trades, debris, restoration, housing services) | TH-2600 | ERL |
+| `TRANSPORT` | Transportation | BT | LOG |
+| `UTILITIES` | Utilities & Infrastructure | BV | ERL |
+| `VOLUNTEER` | Helper coordination (top groupings are two-segment) | per code | per code |
+| `WELFARE` | Welfare checks and missing-person reports (top groupings are two-segment) | per code | per code |
+
+### The rules
+
+1. **Derived, never entered.** A record stores its coordination `taxonomy_code` and nothing else from the standards world. The AIRS code and OCHA cluster are read from the taxonomy row; where a project denormalizes them onto records (THE SOS), a trigger derives them from the stored code on every write. Nobody types an AIRS or OCHA value by hand. A report generator that needs “all requests in cluster X” filters on the derived cluster.
+2. **Classification happens at file time.** Every write path — intake, imports, sweeps, agent tools — resolves the taxonomy code when the record is filed, through the deterministic mappings (category-text map, legacy-code map, subject ruleset, capability-key map, Impacted fine-grain map). The mappings are data (tables), versioned, and re-runnable; a mapping run is logged with rows changed and gaps.
+3. **Unknown means NULL plus a gap, never a guess.** A record with no deterministic classification is filed with `taxonomy_code` NULL and a row in the project's gap log. Foreign keys on the code columns make free-text or invented codes impossible. Gaps are worked from the gap log, not by editing records one at a time.
+4. **Coverage is always two numbers.** Any-code rate (blanket stamps included) and per-item rate (each record classified by its own signal), reported separately. “100% coded” claims that hide a blanket stamp are a reporting defect.
+5. **Both sides of a match are stored on the match.** A match carries the request's code and the resource's code (or the job's code and the person's capability/target codes, in the Impacted tenant), so historical reporting survives later reclassification of either side.
+6. **Cases derive; they do not classify independently.** A case's code is the dominant code among its requests (ties break to the smallest code), maintained by trigger. A case with no classified requests has no code.
+
+### The 2026-10-15 crosswalk decisions (OCHA)
+
+Applied in both SOS projects and the Impacted copy; each pre-logged in `taxonomy_change_log`.
+
+- The full label `Early Recovery` became **ERL** (41 codes, the CIVIC and SVC families).
+- `CCM` became **CCCM**, the standard abbreviation (257 codes).
+- **MUL is kept** on the DONATION family: it is not a standard OCHA abbreviation; it is a documented local extension meaning multi-sector. Do not “fix” it away and do not emit it to an external OCHA consumer without naming it as local.
+- Nutrition subjects moved to **NUT**: `FOOD.BABY` (baby/infant food) left FSC.
+- Water and hygiene subjects moved to **WSH**: `FOOD.WATER` (from FSC), `GOODS.HYGIENE` and the `SUPPLIES.CLEANING` family (from SHL).
+- **CIVIC's AIRS value is NULL on purpose.** The CIVIC family — municipal-service reports whose taxonomy root is itself named “Civic Infrastructure” — mostly has no AIRS counterpart; its root and members without a counterpart keep `airs_code` NULL. NULL is the honest value: a downstream report must not emit an AIRS code for these records. (Do not confuse this family with `CIVIC.VOTE_ATTESTATION`, a retired Relay-era label that is not a taxonomy code and must never be written as one.)
+
+### The Impacted layering contract
+
+- The standard layer (taxonomy code) buys cross-system reporting, the taxonomy-keyed matching paths, and comparability across SOS and Impacted.
+- The fine grain (function_lane, role family, seniority, skills) stays the actual matching input and is never overwritten or discarded in favor of the coarse layer.
+- Mappings between the two are deterministic tables (`taxonomy_impacted_map`), logged per run — no per-record judgment calls.
+- Where the fine grain can only support the root code (today: nearly all jobs are `EMPLOYMENT.SEARCH`, with `EMPLOYMENT.TEMP` where the posting is genuinely temporary work), that is the honest outcome and is reported as a blanket stamp.
 
 ---
 
